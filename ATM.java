@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 class ATM {
 	//default constructor
-
 	public ATM() {
 		location = "";
 		managedBy = "The Worst Bank";
@@ -51,7 +50,6 @@ class ATM {
 	}
 
 	//modifier methods
-
 	public void setLocation(String input_location) {
 		location = input_location;
 	}
@@ -73,10 +71,10 @@ class ATM {
 	}
 
 	//methods
-
 	public void deposit() {
-		if (verified == true)
+		if (verified == true){
 			vito.checkingdeposit();
+		}
 		else {
 			this.checkVerification();
 			this.deposit();
@@ -96,14 +94,12 @@ class ATM {
 			}
 	
 			//check managedBy: if a different company's atm is used, add a $5 charge
-	
 			int charge = 0;
 			if (!managedBy.equalsIgnoreCase("The Worst Bank")) {
 				charge = 5;
 			}
 	
 			//check dailyAmount: don't return money if there is no money left in the atm
-	
 			if (dailyAmount == 0) {
 				System.out.println("There are insufficient funds in this ATM.");
 				//System.out.println("balance = " + accountBalance);
@@ -111,26 +107,24 @@ class ATM {
 			}
 	
 			//check accountBalance: make sure there is enough money in the account, this is the "correct" output
-	
 			if ((amount + charge) < vito.getcheckingBalance()) {
 				if (amount < dailyAmount) {
 					vito.checkingwithdraw(amount + charge);
 					//System.out.println("balance = " + accountBalance);
-				dailyAmount -= amount;
-				return amount;
-			}
+					dailyAmount -= amount;
+					return amount;
+				}
 
-			//check dailyAmount: atm can only output at most as much money as it contains
-
-			else {
-				System.out.println("There are insufficient funds in this ATM.");
-				int temp = dailyAmount;
-				vito.checkingwithdraw(dailyAmount + charge);
-				dailyAmount = 0;
-				//System.out.println("balance = " + accountBalance);
-				return temp;
+				//check dailyAmount: atm can only output at most as much money as it contains
+				else {
+					System.out.println("There are insufficient funds in this ATM.");
+					int temp = dailyAmount;
+					vito.checkingwithdraw(dailyAmount + charge);
+					dailyAmount = 0;
+					//System.out.println("balance = " + accountBalance);
+					return temp;
+				}
 			}
-		}
 			//output for when there is not enough money in the account, returns as much money as the account has
 			else {
 				System.out.println("There are insufficient funds in this account.");
@@ -192,7 +186,7 @@ class ATM {
 		
 		this.checkVerification();
 		System.out.println("Your balance is: $"+vito.getcheckingBalance());
-		System.out.println("What would you like to access? d = deposit, w = withdraw, v = verify information, e = end");
+		System.out.println("What would you like to access? d = deposit, w = withdraw, e = end");
 		Scanner input = new Scanner(System.in);
 		String answer = input.next();
 		if (answer.equals("d")) {
@@ -202,11 +196,6 @@ class ATM {
 		
 		else if (answer.equals("w")) {
 			this.withdraw();
-			this.UI();
-		}
-		
-		else if (answer.equals("v")) {
-			this.checkVerification();
 			this.UI();
 		}
 		
